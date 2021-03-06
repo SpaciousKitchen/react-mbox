@@ -1,5 +1,8 @@
-import React from 'react';
+import React,{useState} from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
+import useStore from '../../useStore';
+import Header from '../common/Header';
 const LoginBlock= styled.div`
   position: absolute;
   left: 0;
@@ -14,14 +17,8 @@ const LoginBlock= styled.div`
   align-items: center;
 `;
 
-const WhiteBox = styled.div`
-  .logo-area {
-    display: block;
-    padding-bottom: 2rem;
-    text-align: center;
-    font-weight: bold;
-    letter-spacing: 2px;
-  }
+const WhiteBox = styled.form`
+ 
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.025);
   padding: 2rem;
   width: 360px;
@@ -45,30 +42,49 @@ const LoginButton = styled.button`
     font-size: 17px;
     width: 80%;
     margin-top:20px;
-    height: 40%;
+    height: 30%;
     font-weight: bold;
 `;
 
-
 const SiginIn=()=>{
 
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const history = useHistory();
 
-    return(
-       
+    const {user}=useStore();
+    const onClickSubmit=(e)=>{
+        e.preventDefault();
+        user.login({email:email,password:password});
+        console.log(user.customer);
+        history.push('/');
+
+    }
+
+    const onClickEmail=(e)=>{
+        setEmail(e.target.value);
+    } 
+    const onClickPassword=(e)=>{
+        setPassword(e.target.value);
+    }
+    
+
+    return(       
      <>
+     <Header/>
+      
      <LoginBlock>
-     <WhiteBox>
-         <StyledInput placeholder="이메일"/>  
+     <WhiteBox onSubmit={onClickSubmit}>
+         <h3>로그인하세요 !</h3>
+         <StyledInput placeholder="이메일" value={email} onChange={onClickEmail}/>  
          <br/>
-         <StyledInput placeholder="비밀번호"type="password"/>  
+         <StyledInput placeholder="비밀번호" type="password"value={password} onChange={onClickPassword}/>  
          <br/>
-        <LoginButton>로그인</LoginButton>
+        <LoginButton type="submit">로그인</LoginButton>
      </WhiteBox>
      </LoginBlock>
-     
      </>
 
-       
     )
 }
 

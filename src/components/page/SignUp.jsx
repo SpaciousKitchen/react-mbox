@@ -1,6 +1,9 @@
-import React from 'react';
+import React ,{useState}from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 
+import useStore from '../../useStore';
+import Header from '../common/Header';
 const LoginBlock= styled.div`
   position: absolute;
   left: 0;
@@ -16,13 +19,7 @@ const LoginBlock= styled.div`
 `;
 
 const WhiteBox = styled.form`
-  .logo-area {
-    display: block;
-    padding-bottom: 2rem;
-    text-align: center;
-    font-weight: bold;
-    letter-spacing: 2px;
-  }
+
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.025);
   padding: 2rem;
   width: 360px;
@@ -50,28 +47,50 @@ const LoginButton = styled.button`
     font-weight: bold;
 `;
 
-const onClickSubmit=()=>{
-
-   
-
-}
-
-
 const SignUp=()=>{
 
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const history = useHistory();
 
+
+    const {user}=useStore();
+
+    const onClickSubmit=(e)=>{
+        e.preventDefault();
+        console.log(user);
+        user.signup({username:name,email:email,password:password});
+        console.log(user.customer);
+        user.login({username:name,email:email,password:password});
+        console.log(user.now);
+        history.push('/');
+
+    }
+    const onClickName=(e)=>{
+      setName(e.target.value);
+    }
+    const onClickEmail=(e)=>{
+        setEmail(e.target.value);
+    } 
+    const onClickPassword=(e)=>{
+        setPassword(e.target.value);
+    }
+    
     return(
        
      <>
+     <Header/>
      <LoginBlock>
-     <WhiteBox>
-        <StyledInput placeholder="이름"/>  
+     <WhiteBox onSubmit={onClickSubmit}>
+         <h3>회원가입하세요!</h3>
+        <StyledInput placeholder="이름" value={name} onChange={onClickName}/>  
         <br/>
-         <StyledInput placeholder="이메일"/>  
+         <StyledInput placeholder="이메일" value={email} onChange={onClickEmail}/>  
          <br/>
-         <StyledInput placeholder="비밀번호" type="password"/>  
+         <StyledInput placeholder="비밀번호" type="password"value={password} onChange={onClickPassword}/>  
          <br/>
-        <LoginButton onClick={onClickSubmit}>회원가입</LoginButton>
+        <LoginButton type="submit">회원가입</LoginButton>
      </WhiteBox>
      </LoginBlock>
      
