@@ -89,14 +89,11 @@ const SiginIn =observer(() => {
     const [password, setPassword] = useState('');
     const history = useHistory();
 
-   
+    const onClickSubmit = () => {  
 
-    const onClickSubmit = () => {
-       
         user.fetchLogin({ email: email, password: password });
         console.log(user.getUser());
         history.push('/');
-
     }
 
     const onClickEmail = (e) => {
