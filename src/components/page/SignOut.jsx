@@ -1,13 +1,15 @@
-import React ,{useState}from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
-import useStore from '../../useStore';
+
+import user from '../../store/user';
 import Header from '../common/Header';
 
 
 const LoginBlock= styled.div`
   position: absolute;
+  height: 70%;
   left: 0;
   top: 0;
   bottom: 0;
@@ -43,10 +45,10 @@ const LoginButton = styled.button`
 const SignOut=()=>{
 
     const history = useHistory();
-    const {user}=useStore();
+   
     const onClickSubmit=(e)=>{
         e.preventDefault();
-        user.logout();
+        user.fetchLogout();
         history.push('/');
     }
    

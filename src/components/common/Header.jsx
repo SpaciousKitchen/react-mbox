@@ -1,11 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import useStore from '../../useStore';
+import user from '../../store/user';
 import styled from 'styled-components';
 import Responsive from './Responsive';
-
+import { observer } from "mobx-react-lite"
 const HeaderBlock = styled.div`
-    position: fixed;
     width: 100%;
     height:8%;
     background: white; 
@@ -47,8 +46,8 @@ const UserBlock = styled.div`
 
 
 
-const Header = () => {
-    const { user } = useStore();
+const Header = observer(() => {
+  
 
     return (
 
@@ -70,7 +69,7 @@ const Header = () => {
 
                     <ul>
                         <li>    {
-                        user.now ? (
+                        user.user ? (
                             <Link to="/signout">로그아웃</Link>
                         ) : (
                                 <Link to="/signin">로그인</Link>
@@ -85,6 +84,6 @@ const Header = () => {
         </HeaderBlock>
 
     )
-}
+});
 
 export default Header;

@@ -4,10 +4,9 @@ import { flow, makeAutoObservable } from "mobx";
 
 import axios from "axios";
 
-export default class User {
+class User {
   user = null;
   state = "idle";
-
   constructor() {
     makeAutoObservable(this, {
       fetchSignUp: flow,
@@ -46,13 +45,16 @@ export default class User {
     try {
       // const result = yield axios.post("/logout", userData);
       this.state = "done";
-      this.use = null;
+      this.user = null;
     } catch (error) {
       this.state = "error";
     }
   }
 
-  get getUser() {
+  getUser() {
     return this.user;
   }
 }
+const user = new User();
+
+export default user;

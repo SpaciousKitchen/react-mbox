@@ -1,11 +1,14 @@
 import React ,{useState}from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
-
-import useStore from '../../useStore';
+import user from '../../store/user';
 import Header from '../common/Header';
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from '@hookform/resolvers/yup';
 const LoginBlock= styled.div`
-  position: absolute;
+ 
+  height: 70%;
   left: 0;
   top: 0;
   bottom: 0;
@@ -55,8 +58,6 @@ const SignUp=()=>{
     const history = useHistory();
 
 
-    const {user}=useStore();
-
     const onClickSubmit=(e)=>{
         e.preventDefault();
         console.log(user);
@@ -88,6 +89,7 @@ const SignUp=()=>{
         <br/>
          <StyledInput placeholder="이메일" value={email} onChange={onClickEmail}/>  
          <br/>
+            
          <StyledInput placeholder="비밀번호" type="password"value={password} onChange={onClickPassword}/>  
          <br/>
         <LoginButton type="submit">회원가입</LoginButton>

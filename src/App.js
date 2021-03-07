@@ -8,6 +8,7 @@ import Main from "./components/page/Main";
 import Info from "./components/page/Info";
 import Find from "./components/page/Find";
 import Inquirie from "./components/page/Inquirie";
+
 function App() {
   return (
     <div className="App">
